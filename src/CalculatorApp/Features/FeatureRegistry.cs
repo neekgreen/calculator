@@ -16,12 +16,14 @@ namespace CalculatorApp.Features
             Scan(scan =>
             {
                 scan.TheCallingAssembly();
-                scan.AssemblyContainingType<IMediator>();
+                //scan.AssemblyContainingType<IMediator>();
 
                 scan.WithDefaultConventions();
 
                 scan.ConnectImplementationsToTypesClosing(typeof(IRequestHandler<,>));
+                //scan.ConnectImplementationsToTypesClosing(typeof(IAsyncRequestHandler<,>));
                 scan.ConnectImplementationsToTypesClosing(typeof(INotificationHandler<>));
+                //scan.ConnectImplementationsToTypesClosing(typeof(IAsyncNotificationHandler<>));
 
                 scan.AddAllTypesOf(typeof(IValidator<>));
                 scan.AddAllTypesOf(typeof(IFeature));

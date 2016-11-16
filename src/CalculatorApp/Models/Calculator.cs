@@ -3,13 +3,12 @@ namespace CalculatorApp.Models
     using System;
     using System.Collections.Generic;
     using System.Linq;
-    
-      public class Calculator : ICalculator
+
+    public class Calculator : ICalculator
     {
         long ICalculator.Evaluate(string expression)
         {
             return Convert.ToInt64(new Eval().Execute(expression));
-            //return Convert.ToInt64(new DataTable().Compute(expression, ""));
         }
     }
 

@@ -39,11 +39,6 @@ namespace CalculatorApp.Features
                 });
             }
 
-            return HandleInternal(message);
-        }
-
-        private TResponse HandleInternal(TRequest message)
-        {
             return this.innerHandler.Handle(message);
         }
 

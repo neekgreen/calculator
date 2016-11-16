@@ -7,7 +7,7 @@ namespace CalculatorApp.Models
         public Calculation(string expression)
         {
             if (string.IsNullOrWhiteSpace(expression))
-                throw new ArgumentOutOfRangeException("expression");
+                throw new ArgumentNullException(nameof(expression));
                 
             this.Expression = expression;
         }
@@ -23,6 +23,9 @@ namespace CalculatorApp.Models
 
         public void Calculate(ICalculator calculator, bool recalculate = false)
         {
+            if (calculator == null)
+                throw new ArgumentNullException(nameof(calculator));
+
             if (Result == null || recalculate)
             {
                 this.Result = calculator.Evaluate(this.Expression);

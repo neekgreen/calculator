@@ -1,10 +1,10 @@
-using System;
-using Microsoft.Extensions.CommandLineUtils;
-using MediatR;
-using CalculatorApp.Features.Calculators;
-
 namespace CalculatorApp.Features.Common
 {
+    using System;
+    using Microsoft.Extensions.CommandLineUtils;
+    using MediatR;
+    using CalculatorApp.Features.Calculators;
+
     public class CalculateFeature : IFeature
     {
         private readonly IMediator mediator;
