@@ -1,0 +1,28 @@
+{
+  "version": "1.0.0-*",
+  "buildOptions": {
+    "debugType": "portable",
+    "emitEntryPoint": true
+  },
+  "dependencies": {
+    "PaginableCollections": "2.0.0",
+    "MediatR": "2.1.0",
+    "AutoMapper": "5.1.1",
+    "StructureMap": "4.4.1",
+    "Microsoft.Extensions.Caching.Abstractions": "1.0.0",
+    "Microsoft.Extensions.Caching.Memory": "1.0.0",
+    "FluentValidation": "6.4.0-beta8",
+    "Microsoft.Extensions.CommandLineUtils": "1.0.0"
+  },
+  "frameworks": {
+    "netcoreapp1.0": {
+      "dependencies": {
+        "Microsoft.NETCore.App": {
+          "type": "platform",
+          "version": "1.0.0"
+        }
+      },
+      "imports": "dnxcore50"
+    }
+  }
+}
