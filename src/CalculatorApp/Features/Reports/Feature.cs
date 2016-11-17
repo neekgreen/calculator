@@ -29,7 +29,8 @@ namespace CalculatorApp.Features.Reports
 
                     var paginable =
                         calculationStorage.GetPage(pageNumberOptionValue, DefaultItemCountPerPage);
-
+                    
+                    Console.WriteLine();
                     Console.WriteLine("Calculation Report");
                     Console.WriteLine("Page {0} of {1} | {2} calculations", paginable.PageNumber, paginable.TotalPageCount, paginable.TotalItemCount);
 

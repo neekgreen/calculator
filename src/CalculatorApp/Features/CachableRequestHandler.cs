@@ -4,13 +4,13 @@ namespace CalculatorApp.Features
     using MediatR;
     using Microsoft.Extensions.Caching.Memory;
 
-    public class CachableRequestAdapter<TRequest, TResponse> : IRequestHandler<TRequest, TResponse> where TRequest : IRequest<TResponse>
+    public class CachableRequestHandler<TRequest, TResponse> : IRequestHandler<TRequest, TResponse> where TRequest : IRequest<TResponse>
     {
         private readonly IMemoryCache cache;
 
         private readonly IRequestHandler<TRequest, TResponse> innerHandler;
 
-        public CachableRequestAdapter(IMemoryCache cache, IRequestHandler<TRequest, TResponse> innerHandler)
+        public CachableRequestHandler(IMemoryCache cache, IRequestHandler<TRequest, TResponse> innerHandler)
         {
             this.cache = cache;
             this.innerHandler = innerHandler;

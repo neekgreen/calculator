@@ -11,21 +11,6 @@
         private const int ExitCode = -1;
         private static Container ParentScope { get; set; }
 
-        private static string[] ParseArguments(string commandLine)
-        {
-            var parmChars = commandLine.ToCharArray();
-            var inQuote = false;
-
-            for (int index = 0; index < parmChars.Length; index++)
-            {
-                if (parmChars[index] == '"')
-                    inQuote = !inQuote;
-                if (!inQuote && parmChars[index] == ' ')
-                    parmChars[index] = '\n';
-            }
-            return (new string(parmChars)).Split('\n');
-        }
-
         public static void Main(string[] args)
         {
             ParentScope = new Container(c => c.AddRegistry<DefaultRegistry>());
@@ -58,7 +43,7 @@
 
                 try
                 {
-                    args = ParseArguments(input);
+                    args = input.ToCommandLineArgs();
                     app.Execute(args);
                 }
                 catch

@@ -28,7 +28,7 @@ namespace CalculatorApp.Features
                 var handlerType = For(typeof(IRequestHandler<,>));
 
                 //handlerType.DecorateAllWith(typeof(LoggingHandler<,>));
-                handlerType.DecorateAllWith(typeof(CachableRequestAdapter<,>), (t) => typeof(ICachableRequestHandler).IsAssignableFrom(t.ReturnedType)); //).Name.EndsWith("CommandHandler"));
+                handlerType.DecorateAllWith(typeof(CachableRequestHandler<,>), (t) => typeof(ICachableRequestHandler).IsAssignableFrom(t.ReturnedType)); //).Name.EndsWith("CommandHandler"));
 
                 For<SingleInstanceFactory>().Use<SingleInstanceFactory>(ctx => t => ctx.GetInstance(t));
                 For<MultiInstanceFactory>().Use<MultiInstanceFactory>(ctx => t => ctx.GetAllInstances(t));
