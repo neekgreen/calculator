@@ -1,4 +1,4 @@
-namespace CalculatorApp.Features.Common
+namespace CalculatorApp.Features
 {
     using Microsoft.Extensions.CommandLineUtils;
 

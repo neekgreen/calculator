@@ -6,7 +6,6 @@ namespace CalculatorApp.Features
     using FluentValidation;
     using System.Reflection;
     using Microsoft.Extensions.Options;
-    using Common;
     using Models;
 
     public class FeatureRegistry : Registry
@@ -16,8 +15,6 @@ namespace CalculatorApp.Features
             Scan(scan =>
             {
                 scan.TheCallingAssembly();
-                //scan.AssemblyContainingType<IMediator>();
-
                 scan.WithDefaultConventions();
 
                 scan.ConnectImplementationsToTypesClosing(typeof(IRequestHandler<,>));

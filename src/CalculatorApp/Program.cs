@@ -4,17 +4,18 @@
     using StructureMap;
     using System.Linq;
     using Microsoft.Extensions.CommandLineUtils;
-    using Features.Common;
+    using Features;
 
     public class Program
     {
+        private const int ExitCode = -1;
         private static Container ParentScope { get; set; }
 
         private static string[] ParseArguments(string commandLine)
         {
             var parmChars = commandLine.ToCharArray();
             var inQuote = false;
-            
+
             for (int index = 0; index < parmChars.Length; index++)
             {
                 if (parmChars[index] == '"')
@@ -40,14 +41,14 @@
                 {
                     c.OnExecute(() =>
                     {
-                        return -1;
+                        return ExitCode;
                     });
                 });
 
                 ParentScope.GetAllInstances(typeof(IFeature))
                     .OfType<IFeature>()
                     .ToList()
-                    .ForEach(t=> 
+                    .ForEach(t =>
                     {
                         t.Register(app);
                     });
@@ -60,13 +61,12 @@
                     args = ParseArguments(input);
                     app.Execute(args);
                 }
-                catch 
+                catch
                 {
                     Console.WriteLine("Invalid command - try again.");
                 }
 
-
-            } while (result != -1);
+            } while (result != ExitCode);
         }
     }
 }

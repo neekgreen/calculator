@@ -1,15 +1,15 @@
-namespace CalculatorApp.Features.Common
+namespace CalculatorApp.Features.Calculations
 {
     using System;
     using Microsoft.Extensions.CommandLineUtils;
     using MediatR;
     using CalculatorApp.Features.Calculators;
 
-    public class CalculateFeature : IFeature
+    public class Feature : IFeature
     {
         private readonly IMediator mediator;
 
-        public CalculateFeature(IMediator mediator)
+        public Feature(IMediator mediator)
         {
             this.mediator = mediator;
         }

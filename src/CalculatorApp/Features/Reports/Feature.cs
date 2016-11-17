@@ -1,14 +1,15 @@
-namespace CalculatorApp.Features.Common
+namespace CalculatorApp.Features.Reports
 {
     using System;
+    using CalculatorApp.Features;
     using CalculatorApp.Models;
     using Microsoft.Extensions.CommandLineUtils;
 
-    public class ReportFeature : IFeature 
+    public class Feature : IFeature 
     {
         private readonly ICalculationStorage calculationStorage;
 
-        public ReportFeature (ICalculationStorage calculationStorage)
+        public Feature (ICalculationStorage calculationStorage)
         {
             this.calculationStorage = calculationStorage;
         }

@@ -9,9 +9,6 @@ namespace CalculatorApp
             Scan(scan =>
             {
                 scan.AssemblyContainingType<Program>();
-                scan.TheCallingAssembly();
-                scan.WithDefaultConventions();
-
                 scan.LookForRegistries();
             });
         }
