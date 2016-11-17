@@ -44,7 +44,7 @@
                 try
                 {
                     args = input.ToCommandLineArgs();
-                    app.Execute(args);
+                    result = app.Execute(args);
                 }
                 catch
                 {
