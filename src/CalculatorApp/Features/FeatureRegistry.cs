@@ -4,6 +4,7 @@ namespace CalculatorApp.Features
     using Microsoft.Extensions.Caching.Memory;
     using StructureMap;
     using FluentValidation;
+    using System.Collections.Generic;
     using System.Reflection;
     using Microsoft.Extensions.Options;
     using Models;
@@ -35,7 +36,11 @@ namespace CalculatorApp.Features
 
                 For<IMediator>().Use<Mediator>();
                 For<IMemoryCache>().Use(()=> new MemoryCache(Options.Create(new MemoryCacheOptions()))).Singleton();
-                For<ICalculationStorage>().Use<CalculationStorage>().Singleton();
+                
+                For<ICalculator>().DecorateAllWith<CachableCalculator>();
+                For<ICalculator>().Use<Calculator>();
+
+                For<IMathEquationResultRepository>().Use<MathEquationResultRepository>().Singleton();
             });
         }
     }

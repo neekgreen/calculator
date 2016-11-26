@@ -1,7 +1,10 @@
 namespace CalculatorApp.Models
 {
+    using System;
+    using System.Threading.Tasks;
+    
     public interface ICalculator
     {
-        long Evaluate(string expression);
+        Task<decimal> Evaluate(string expression);
     }
 }

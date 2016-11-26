@@ -1,14 +1,15 @@
-namespace CalculatorApp.Features.Calculators
+namespace CalculatorApp.Features.MathEquations
 {
-    using CalculatorApp.Models;
+    using System;
     using MediatR;
     using Microsoft.Extensions.Caching.Memory;
+    using CalculatorApp.Models;
 
-    public class CalculateCommand : IRequest<Calculation>, ICachableRequest
+    public class EvaluateCommand : IRequest<MathEquationResult>, ICachableRequest
     {
         public string Expression { get; set; }
-        public bool IsCachable { get;set; }
 
+        public bool IsCachable { get;set; }
 
         string ICachableRequest.GetCacheKey()
         {
@@ -17,7 +18,9 @@ namespace CalculatorApp.Features.Calculators
 
         MemoryCacheEntryOptions ICachableRequest.GetCacheOptions()
         {
-            return new MemoryCacheEntryOptions();
+            return 
+                new MemoryCacheEntryOptions()
+                    .SetSlidingExpiration(TimeSpan.FromHours(1));
         }
     }
 }

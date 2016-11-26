@@ -6,6 +6,7 @@
     using Microsoft.Extensions.CommandLineUtils;
     using Features;
 
+
     public class Program
     {
         private const int ExitCode = -1;

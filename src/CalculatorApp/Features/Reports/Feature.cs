@@ -4,14 +4,15 @@ namespace CalculatorApp.Features.Reports
     using CalculatorApp.Features;
     using CalculatorApp.Models;
     using Microsoft.Extensions.CommandLineUtils;
+    using MediatR;
 
     public class Feature : IFeature 
     {
-        private readonly ICalculationStorage calculationStorage;
+        private readonly IMediator mediator;
 
-        public Feature (ICalculationStorage calculationStorage)
+        public Feature (IMediator mediator)
         {
-            this.calculationStorage = calculationStorage;
+            this.mediator = mediator;
         }
 
         void IFeature.Register(CommandLineApplication app)
@@ -28,7 +29,12 @@ namespace CalculatorApp.Features.Reports
                     var pageNumberOptionValue = Convert.ToInt32(pageNumberOption.Value() ?? DefaultPageNumber.ToString());
 
                     var paginable =
-                        calculationStorage.GetPage(pageNumberOptionValue, DefaultItemCountPerPage);
+                        this.mediator.Send(
+                            new IndexQuery 
+                            {
+                                PageNumber = pageNumberOptionValue, 
+                                ItemCountPerPage = DefaultItemCountPerPage
+                            });
                     
                     Console.WriteLine();
                     Console.WriteLine("Calculation Report");

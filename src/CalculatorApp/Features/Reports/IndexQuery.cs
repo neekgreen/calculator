@@ -4,9 +4,9 @@ namespace CalculatorApp.Features.Reports
     using MediatR;
     using PaginableCollections;
 
-    public class PaginableCommand : IRequest<IPaginable<Calculation>>, IPaginableInfo
+    public class IndexQuery : IRequest<IPaginable<MathEquationResult>>, IPaginableInfo
     {
-        public PaginableCommand()
+        public IndexQuery()
         {
             this.ItemCountPerPage = 10;
         }

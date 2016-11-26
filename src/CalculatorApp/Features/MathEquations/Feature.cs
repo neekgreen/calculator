@@ -1,9 +1,8 @@
-namespace CalculatorApp.Features.Calculations
+namespace CalculatorApp.Features.MathEquations
 {
     using System;
     using Microsoft.Extensions.CommandLineUtils;
     using MediatR;
-    using CalculatorApp.Features.Calculators;
 
     public class Feature : IFeature
     {
@@ -33,11 +32,13 @@ namespace CalculatorApp.Features.Calculations
 
                     var commandResult =
                         mediator.Send(
-                            new CalculateCommand
+                            new EvaluateCommand
                             {
                                 Expression = expressionArgument.Value,
                                 IsCachable = cacheOption.Value() != null,
                             });
+
+                    mediator.Publish(commandResult);
 
                     Console.WriteLine("{0}={1}", expressionArgument.Value, commandResult.Result);
                     Console.WriteLine("{0}", commandResult.Created);

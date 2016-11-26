@@ -1,6 +1,5 @@
 namespace CalculatorApp.Features
 {
-    using System;
     using MediatR;
     using Microsoft.Extensions.Caching.Memory;
 
@@ -26,25 +25,13 @@ namespace CalculatorApp.Features
 
                 return cache.GetOrCreate(cacheKey, entry =>
                 {
-                    var absoluteExpiration = (message as ICachableRequestWithAbsoluteExpiration)?.GetAbsoluteExpiration();
-                    var slidingExpiration = (message as ICachableRequestWithSlidingExpiration)?.GetSlidingExpiration();
-
-                    if (absoluteExpiration.HasValue)
-                        entry.AbsoluteExpiration = absoluteExpiration.Value;
-
-                    if (slidingExpiration.HasValue)
-                        entry.SlidingExpiration = slidingExpiration.Value;
+                    entry.SetOptions(cachableRequest.GetCacheOptions());
 
                     return this.innerHandler.Handle(message);
                 });
             }
 
             return this.innerHandler.Handle(message);
-        }
-
-        private TResponse GetNew(ICacheEntry ce)
-        {
-            return default(TResponse);
         }
     }
 }
