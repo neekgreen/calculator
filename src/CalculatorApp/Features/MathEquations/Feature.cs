@@ -15,13 +15,12 @@ namespace CalculatorApp.Features.MathEquations
 
         void IFeature.Register(CommandLineApplication app)
         {
-            app.Command("calculate", c =>
+            app.Command("eval", c =>
             {
                 c.Description = "Calculate an expression";
 
                 var expressionArgument = c.Argument("[expression]", "The math expression to evaluate.");
-                var cacheOption = c.Option("-c|--cache", "Cache the expression and result.", CommandOptionType.NoValue);
-
+ 
                 c.OnExecute(() =>
                 {
                     if (expressionArgument.Value == null)
@@ -34,8 +33,7 @@ namespace CalculatorApp.Features.MathEquations
                         mediator.Send(
                             new EvaluateCommand
                             {
-                                Expression = expressionArgument.Value,
-                                IsCachable = cacheOption.Value() != null,
+                                Expression = expressionArgument.Value
                             });
 
                     mediator.Publish(commandResult);

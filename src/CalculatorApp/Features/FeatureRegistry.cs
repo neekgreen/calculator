@@ -19,17 +19,10 @@ namespace CalculatorApp.Features
                 scan.WithDefaultConventions();
 
                 scan.ConnectImplementationsToTypesClosing(typeof(IRequestHandler<,>));
-                //scan.ConnectImplementationsToTypesClosing(typeof(IAsyncRequestHandler<,>));
                 scan.ConnectImplementationsToTypesClosing(typeof(INotificationHandler<>));
-                //scan.ConnectImplementationsToTypesClosing(typeof(IAsyncNotificationHandler<>));
 
                 scan.AddAllTypesOf(typeof(IValidator<>));
                 scan.AddAllTypesOf(typeof(IFeature));
-
-                var handlerType = For(typeof(IRequestHandler<,>));
-
-                //handlerType.DecorateAllWith(typeof(LoggingHandler<,>));
-                handlerType.DecorateAllWith(typeof(CachableRequestHandler<,>), (t) => typeof(ICachableRequestHandler).IsAssignableFrom(t.ReturnedType)); //).Name.EndsWith("CommandHandler"));
 
                 For<SingleInstanceFactory>().Use<SingleInstanceFactory>(ctx => t => ctx.GetInstance(t));
                 For<MultiInstanceFactory>().Use<MultiInstanceFactory>(ctx => t => ctx.GetAllInstances(t));

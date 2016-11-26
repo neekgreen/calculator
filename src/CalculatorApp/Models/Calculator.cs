@@ -1,11 +1,8 @@
 namespace CalculatorApp.Models
 {
     using System;
-    using System.Collections.Generic;
-    using System.Linq;
     using System.Threading.Tasks;
     using RestSharp.Portable;
-    using RestSharp;
     using RestSharp.Portable.HttpClient;
 
     public class Calculator : ICalculator
@@ -21,10 +18,15 @@ namespace CalculatorApp.Models
         {
             var request = new RestRequest(string.Format("api/calculations/{0}", expression), Method.GET);
             var client = new RestClient(BaseUrl);
-            var response = await client.Execute<ResponseData>(request);
 
-            if (response.IsSuccess)
-                return response.Data.Result;
+            try
+            {
+                var response = await client.Execute<ResponseData>(request);
+
+                if (response.IsSuccess)
+                    return response.Data.Result;
+            } 
+            catch { }
 
             return Convert.ToDecimal(0);
         }

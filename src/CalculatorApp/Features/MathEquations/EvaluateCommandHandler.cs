@@ -3,7 +3,7 @@ namespace CalculatorApp.Features.MathEquations
     using CalculatorApp.Models;
     using MediatR;
 
-    public class EvaluateCommandHandler : IRequestHandler<EvaluateCommand, MathEquationResult>, ICachableRequestHandler
+    public class EvaluateCommandHandler : IRequestHandler<EvaluateCommand, MathEquationResult>
     {
         private readonly ICalculator calculator;
         private readonly IMediator mediator;
