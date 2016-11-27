@@ -5,13 +5,6 @@ namespace CalculatorApp.Models
  
     public abstract class Entity : IEntity
     {
-        protected Entity()
-        {
-            this.Created = DateTimeOffset.Now;
-            this.Id = Guid.NewGuid();
-        }
-
-
         public ICollection<IDomainEvent> Events { get; private set; }
 
         public DateTimeOffset Created { get; protected set; }
@@ -31,6 +24,15 @@ namespace CalculatorApp.Models
                 foreach (var domainEvent in domainEvents)
                     this.Events.Add(domainEvent);
             }
+        }
+
+        protected void OnCreated(params IDomainEvent[] domainEvents)
+        {
+            if (domainEvents != null)
+                CaptureEvent(domainEvents);
+
+            this.Created = DateTimeOffset.Now;
+            this.Id = Guid.NewGuid();
         }
 
         protected void OnUpdated(params IDomainEvent[] domainEvents)

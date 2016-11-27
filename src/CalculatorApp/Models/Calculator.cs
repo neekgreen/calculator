@@ -1,6 +1,5 @@
 namespace CalculatorApp.Models
 {
-    using System;
     using System.Threading.Tasks;
     using RestSharp.Portable;
     using RestSharp.Portable.HttpClient;
@@ -14,9 +13,11 @@ namespace CalculatorApp.Models
 
         }
 
-        async Task<decimal> ICalculator.Evaluate(string expression)
+        async Task<CalculatorResult> ICalculator.Evaluate(string expression)
         {
-            var request = new RestRequest(string.Format("api/calculations/{0}", expression), Method.GET);
+            var request = new RestRequest("api/calculations", Method.POST);
+            request.AddBody(new { expression });
+
             var client = new RestClient(BaseUrl);
 
             try
@@ -24,11 +25,11 @@ namespace CalculatorApp.Models
                 var response = await client.Execute<ResponseData>(request);
 
                 if (response.IsSuccess)
-                    return response.Data.Result;
+                    return new CalculatorResult(expression, response.Data.Result);
             } 
             catch { }
 
-            return Convert.ToDecimal(0);
+            return null;
         }
     }
 

@@ -5,17 +5,17 @@ namespace CalculatorApp.Features.Reports
 
     public class MathEquationResultHandler : INotificationHandler<MathEquationResult>
     {
-        private readonly IMathEquationResultRepository commitApi;
+        private readonly IMathEquationResultRepository respository;
 
-        public MathEquationResultHandler(IMathEquationResultRepository commitApi)
+        public MathEquationResultHandler(IMathEquationResultRepository respository)
         {
-            this.commitApi = commitApi;
+            this.respository = respository;
         }
 
         void INotificationHandler<MathEquationResult>.Handle(MathEquationResult result)
         {
             if (result != null)
-                this.commitApi.Commit(result);
+                this.respository.Commit(result);
         }
     }
 }

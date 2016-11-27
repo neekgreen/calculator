@@ -15,15 +15,18 @@ namespace CalculatorApp.Models
             this.calculator = calculator;
         }
 
-        Task<decimal> ICalculator.Evaluate(string expression)
+        Task<CalculatorResult> ICalculator.Evaluate(string expression)
         {
             var cacheKey = expression;
 
             return memoryCache.GetOrCreate(cacheKey, entry =>
             {
-                entry.SetSlidingExpiration(TimeSpan.FromHours(1));
+                var result = this.calculator.Evaluate(expression);
 
-                return this.calculator.Evaluate(expression);
+                if (result != null)
+                    entry.SetSlidingExpiration(TimeSpan.FromHours(1));
+
+                return result;
             });
         }
     }

@@ -5,6 +5,6 @@ namespace CalculatorApp.Models
     
     public interface ICalculator
     {
-        Task<decimal> Evaluate(string expression);
+        Task<CalculatorResult> Evaluate(string expression);
     }
 }

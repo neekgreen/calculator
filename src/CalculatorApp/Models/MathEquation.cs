@@ -1,7 +1,6 @@
 namespace CalculatorApp.Models
 {
     using System;
-    using System.Threading.Tasks;
 
     public class MathEquation : Entity
     {
@@ -11,6 +10,8 @@ namespace CalculatorApp.Models
                 throw new ArgumentOutOfRangeException(nameof(expression));
                 
             this.Expression = expression;
+
+            OnCreated();
         }
 
         private MathEquation()
@@ -20,19 +21,20 @@ namespace CalculatorApp.Models
 
         public string Expression { get; private set; }
         public decimal? Result { get; private set; }
-        public bool IsEvaluated { get { return Result.HasValue; } }
+        public DateTimeOffset? LastCalculated { get; set; }
 
 
-        public void Evaluate(ICalculator calculator, bool recalculate = false)
+        public void Evaluate(ICalculator calculator)
         {
             if (calculator == null)
                 throw new ArgumentNullException(nameof(calculator));
 
-            if (Result == null || recalculate)
-            {
-                this.Result = calculator.Evaluate(this.Expression).Result;
-                OnUpdated(new MathEquationEvaluated(this));
-            }
+            var result = calculator.Evaluate(this.Expression).Result;
+
+            this.Result = result?.Result;
+            this.LastCalculated = result?.Created;
+
+            OnUpdated(new MathEquationEvaluated(this));
         }
     }
 }

@@ -39,7 +39,6 @@ namespace CalculatorApp.Features.MathEquations
                     mediator.Publish(commandResult);
 
                     Console.WriteLine("{0}={1}", expressionArgument.Value, commandResult.Result);
-                    Console.WriteLine("{0}", commandResult.Created);
                     Console.WriteLine();
 
                     return 0;
