@@ -14,6 +14,7 @@ namespace WebApi.Controllers
             this.mediator = mediator;
         }
 
+        [HttpPost]
         public CalculateResult Post([FromBody]InputModel model)
         {
             var result = 

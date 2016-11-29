@@ -10,6 +10,7 @@ namespace WebApi
             {
                 scan.AssemblyContainingType<DefaultRegistry>();
                 scan.LookForRegistries();
+                scan.WithDefaultConventions();
             });
         }
     }

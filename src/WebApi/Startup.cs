@@ -26,7 +26,7 @@ namespace WebApi
         public IConfigurationRoot Configuration { get; }
 
         public IServiceProvider ConfigureServices(IServiceCollection services)
-        {
+        {          
             services
                 .AddMvc(options =>
                 {
@@ -34,6 +34,8 @@ namespace WebApi
                 })
                 .AddControllersAsServices()
                 .AddFluentValidation(fv => fv.RegisterValidatorsFromAssemblyContaining<Startup>());
+
+            services.AddSwaggerGen();
 
             var container = new Container(config =>
             {
@@ -51,6 +53,9 @@ namespace WebApi
             loggerFactory.AddDebug();
 
             app.UseMvc();
+
+            app.UseSwagger();
+            app.UseSwaggerUi();
         }
     }
 }
